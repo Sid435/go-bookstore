@@ -26,7 +26,7 @@ Bookstore api made using GoLang and MySql as backend
    ```
 3. **Docker:**
    ```bash
-    docker-compose up -d
+    docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=rootpassword -e MYSQL_DATABASE=simplerest -e MYSQL_USER=siddharth -e MYSQL_PASSWORD=siddharth -p 3306:3306 -d mysql:latest
     ```
 
 ## Usage

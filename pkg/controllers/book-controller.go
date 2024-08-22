@@ -3,15 +3,54 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/sid/go-bookstore/pkg/models"
 	"github.com/sid/go-bookstore/pkg/utils"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var NewBook models.Book
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	var userDetails = &models.User{}
+	utils.ParseBody(r, &userDetails)
+	username := userDetails.Username
+	password := userDetails.Password
+	user_data, _ := models.GetUserByUsername(username)
+	w.Header().Set("Content-Type", "application/json")
+	if err := bcrypt.CompareHashAndPassword([]byte(user_data.Password), []byte(password)); err == nil {
+		s, err := utils.CreateToken(username)
+		if err != nil {
+			w.WriteHeader(http.StatusConflict)
+			log.Println(err)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		res, _ := json.Marshal(s)
+		w.Write(res)
+		return
+	} else {
+		s := "Soemthing is missing"
+		res, _ := json.Marshal(s)
+		w.Write(res)
+		return
+	}
+}
+
+func Signup(w http.ResponseWriter, r *http.Request) {
+	CreateUser := &models.User{}
+
+	utils.ParseBody(r, CreateUser)
+	u := CreateUser.CreateUser()
+
+	res, _ := json.Marshal(u)
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
 
 func CreateBook(w http.ResponseWriter, r *http.Request) {
 
