@@ -1,6 +1,6 @@
 # Bookstore Api
 
-Bookstore api made using GoLang and MySql as backend
+Bookstore api made using GoLang and MySql as database. JWT for token based security.
 
 ## Table of Contents
 
@@ -42,9 +42,11 @@ Bookstore api made using GoLang and MySql as backend
 ## Testing
 
 1. **Go to postman:**
-    Use the url :- <b>http://localhost:9010/book/</b>
-    1. Get all the books :- /book -> GET Method
-    2. Get a specific book :- /book/{id} -> GET Method
-    3. Post a book :- /book/ -> POST Method
-    4. Update a book :- /book/{id} -> PUT Method
-    5. Delete a book :- /book/{id} -> DELETE Method
+    Use the url :- <b>http://localhost:9010/</b>
+    1. Auth :- /auth/login -> POST Method
+    2. Signup :- /auth/sigup -> POST Method
+    3. Get all the books :- /books -> GET Method
+    4. Get a specific book :- /books/{id} -> GET Method
+    5. Post a book :- /books/ -> POST Method
+    6. Update a book :- /books/{id} -> PUT Method
+    7. Delete a book :- /books/{id} -> DELETE Method
